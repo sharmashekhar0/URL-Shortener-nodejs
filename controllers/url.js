@@ -10,7 +10,7 @@ async function handleGenerateNewShortUrl(req, res) {
 		redirectUrl: body.url,
 		visitedHistory: [],
 	});
-	return res.json({ id: shortID });
+	return res.render("home", { id: shortID });
 }
 
 async function handleRedirectRequest(req, res) {
@@ -39,8 +39,14 @@ async function handleGetAnalytics(req, res) {
 	});
 }
 
+async function handleGetHomepage(req, res) {
+	const allUrls = await URL.find({});
+	return res.render("home", { urls: allUrls });
+}
+
 module.exports = {
 	handleGenerateNewShortUrl,
 	handleRedirectRequest,
 	handleGetAnalytics,
+	handleGetHomepage,
 };
